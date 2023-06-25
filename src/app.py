@@ -7,17 +7,18 @@ from flask_sqlalchemy import SQLAlchemy
 
 # Local Imports
 from .config import config
+from .db import create_db
 from .models import create_models
 from .routes import create_routes
 
 
 def create_app():
-    db = SQLAlchemy()
+    db = create_db()
     models = create_models(db)
 
     app = Flask(__name__)
     app.config.from_object(config)
-    create_routes(app, db)
+    create_routes(app, db, models)
 
     bootstrap = Bootstrap5(app)
     db.init_app(app)

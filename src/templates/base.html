@@ -33,12 +33,9 @@
                 Teams
             </a>
             <ul class="dropdown-menu">
-                {# {% for team in team_list %}
-                    {{ render_nav_item('{{ team.link }}', '{{ team.name }}') }}
-                {% endfor %} #}
-                {{ render_nav_item('index', 'GNB') }}
-                {{ render_nav_item('index', 'NYJ') }}
-                {{ render_nav_item('index', 'TEN') }}
+                {% for team in team_list %}
+                    {{ render_nav_item('index', '{{ team.name }}') }}
+                {% endfor %}
             </ul>
             </li>
         </ul>

@@ -22,4 +22,10 @@ def create_models(db) -> dict:
         team_b_score = db.Column(db.Integer, nullable=True)
     models['Line'] = Line
         
+    class Team(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        name = db.Column(db.String, nullable=True)
+    models['Team'] = Team
+
+
     return models
