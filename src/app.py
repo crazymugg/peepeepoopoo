@@ -1,16 +1,27 @@
-from flask import Flask, render_template
+# Standard Imports
+
+# External Imports
+from flask import Flask, redirect
 from flask_bootstrap import Bootstrap5
+from flask_sqlalchemy import SQLAlchemy
+
+# Local Imports
+from .config import config
+from .models import create_models
+from .routes import create_routes
+
 
 def create_app():
-    app = Flask(__name__)
-    bootstrap = Bootstrap5(app)
+    db = SQLAlchemy()
+    models = create_models(db)
 
-    @app.route('/')
-    def index():
-        return render_template('base.html')
-    
-    @app.route('/about')
-    def about():
-        return render_template('about.html')
+    app = Flask(__name__)
+    app.config.from_object(config)
+    create_routes(app, db)
+
+    bootstrap = Bootstrap5(app)
+    db.init_app(app)
+
+
 
     return app
