@@ -1,31 +1,38 @@
+from sqlalchemy.ext.declarative import declarative_base
+
 def create_models(db) -> dict:
-    models = {}
+
+
+    Base = declarative_base()
+
+    class TeamGame(Base):
+        __tablename__ = 'teamgame'
+
+        game_id = db.Column("game_id", db.ForeignKey('game.id'), primary_key=True),
+        team_id = db.Column("team_id", db.ForeignKey('team.id'), primary_key=True)
+
+
+
+    # TeamGame = db.Table('teamgame',
+    #                     db.Column("game_id", db.ForeignKey('game.id'), primary_key=True),
+    #                     db.Column("team_id", db.ForeignKey('team.id'), primary_key=True))
     
+
     class Game(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        year = db.Column(db.Integer, nullable=True)
-        week = db.Column(db.Integer, nullable=True)
-        game_num = db.Column(db.Integer, nullable=True)
-        #serial_id = '' 2022_01_05
-        team_a = db.Column(db.String, nullable=True)
-        team_b = db.Column(db.String, nullable=True)
-        lines = db.relationship('Line', backref='game', lazy='selectin')
-    models['Game'] = Game
+        id = db.Column(db.Integer, primary_key=True, unique=True)
+        name = db.Column(db.String(10), nullable=False, unique=True)
+        teams = db.relationship('Game', secondary=TeamGame, backref=db.backref('game', lazy=True))
 
-    class Line(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        game_id = db.Column(db.Integer, db.ForeignKey('game.id'), nullable=True)
-        quarter = db.Column(db.Integer, nullable=True)
-        time = db.Column(db.Integer, nullable=True)
-        game_num = db.Column(db.Integer, nullable=True)
-        team_a_score = db.Column(db.Integer, nullable=True)
-        team_b_score = db.Column(db.Integer, nullable=True)
-    models['Line'] = Line
-        
     class Team(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String, nullable=True)
-    models['Team'] = Team
+        id = db.Column(db.Integer, primary_key=True, unique=True)
+        name = db.Column(db.String(3), nullable=False, unique=True)
+        games = db.relationship('Game', secondary=TeamGame, backref=db.backref('team', lazy=True))
 
+
+
+    models = {}
+    models['Game'] = Game
+    models['Team'] = Team
+    models['TeamGame'] = TeamGame
 
     return models
