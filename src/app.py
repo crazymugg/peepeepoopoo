@@ -5,6 +5,7 @@ from flask import Flask, redirect
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 # Local Imports
 from .config import config
@@ -21,7 +22,11 @@ def create_app():
     app.config.from_object(config)
     create_routes(app, db, models)
 
-    admin = Admin(app)
+    admin = Admin(app, name='microblog', template_mode='bootstrap3')
+    admin.add_view(ModelView(models['Team'], db.session))
+    admin.add_view(ModelView(models['Game'], db.session))
+
+
     bootstrap = Bootstrap5(app)
     db.init_app(app)
 

@@ -4,9 +4,9 @@ def create_routes(app, db, models) -> None:
     @app.route('/')
     def index():
         # country_query = models['Country'].query.order_by(models['Country'].name)
-        results = models['Team'].query.order_by(models['Team'].name)
-        print(results)
-        return render_template('home.html', results=results)
+        # results = models['Team'].query.order_by(models['Team'].name)
+        # print(results)
+        return render_template('home.html')
     
     @app.route('/about')
     def about():
@@ -43,3 +43,17 @@ def create_routes(app, db, models) -> None:
         db.session.add(teamgame)
         db.session.commit()
         return redirect('/')
+    
+
+
+    @app.route('/test')
+    def test():
+        team1 = models['Team']
+        team2 = models['Team']
+        game =  models['Game']
+
+        game.teams.append(team1)
+        game.teams.append(team2)
+        db.session.add(game)
+        db.session.commit()
+        return redirect('/')    

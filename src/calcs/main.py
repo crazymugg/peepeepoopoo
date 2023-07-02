@@ -73,9 +73,6 @@ class Game_Calc():
         conv_time  = quarter_time_elapsed + added_quarter_time
         return conv_time
 
-    def calc_adj_score(self):
-        pass
-
     def diff_result(self):
         pass
 
