@@ -12,6 +12,18 @@ def create_routes(app, db, models) -> None:
     def about():
         return render_template('about.html')
     
+
+    @app.route('/score')
+    def score():
+        return render_template('score.html')
+
+
+    @app.route('/result')
+    def result():
+        return render_template('result.html')
+
+
+
     @app.route('/dbreset')
     def dbreset():
         with app.app_context():

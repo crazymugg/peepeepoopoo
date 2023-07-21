@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form>
+
+        <label for="quarter">Quarter:</label>
+        <input type="text" id="quarter" name="quarter">
+
+        <label for="time">Time:</label>
+        <input type="text" id="time" name="time">
+
+        <label for="team_a">Team A Score:</label>
+        <input type="text" id="team_a" name="team_a">
+
+        <label for="team_b">Team B Score:</label>
+        <input type="text" id="team_b" name="team_b"><br/>
+
+        <input type="submit" value="Calculate">
+    </form>
+{% endblock content %}
