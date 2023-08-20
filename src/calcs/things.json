@@ -1,0 +1,21 @@
+{
+    "Metadata": {
+        "Team A": "ATL",
+        "Team B": "NWE"
+    },
+
+    "Lines": {
+        "1": {
+            "Quarter": "1",
+            "Time": "12:22",
+            "Team A Score": "7",
+            "Team B Score": "0"
+        },
+        "2": {
+            "Quarter": "1",
+            "Time": "3:22",
+            "Team A Score": "7",
+            "Team B Score": "3"
+        }
+    }
+}
